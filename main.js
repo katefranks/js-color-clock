@@ -1,10 +1,46 @@
-var time = new Date();
-  console.log(time.getHours());
-  console.log(time.getMinutes());
-  console.log(time.getSeconds());
+var clockDisplay = document.querySelector('.clock-display');
+var clock = document.querySelector('.clock');
 
-  var clockDisplay = document.querySelector('.clock-display');
-clockDisplay.textContent = time
+function colorClock() {
+  var time = new Date();
+  var hours = (time.getHours() %12).toString();
+  var minutes = time.getMinutes().toString();
+  var seconds = time.getSeconds().toString();
+
+  if (hours.length < 2) {
+    hours = '0' + hours;
+  }
+
+  if (minutes.length < 2) {
+    minutes = '0' + minutes;
+  }
+
+  if (seconds.length < 2) {
+    seconds = '0' + seconds;
+  }
+
+var clockDisplayStr = hours + ' : ' + minutes + ' : ' + seconds;
+var clockStr = '#' + hours + minutes + seconds;
+
+clockDisplay.textContent = clockDisplayStr;
+clockStr.textContent = clockStr;
+}
+
+colorClock();
+setInterval(colorClock, 1000);
+
+
+// *start code- the following displays the date/time in clock.
+// var time = new Date();
+//   console.log(time.getHours());
+//   console.log(time.getMinutes());
+//   console.log(time.getSeconds());
+//
+//   var clockDisplay = document.querySelector('.clock-display');
+// clockDisplay.textContent = time
+// *end code*
+
+
 
 // (function colorClock() {
 //   var time = new Date();
