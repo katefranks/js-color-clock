@@ -19,7 +19,7 @@ function colorClock() {
     seconds = '0' + seconds;
   }
 
-var clockDisplayStr = hours + ' : ' + minutes + ' : ' + seconds;
+var clockDisplayStr = hours + ':' + minutes + ':' + seconds;
 var clockStr = '#' + hours + minutes + seconds;
 
 clockDisplay.textContent = clockDisplayStr;
@@ -28,6 +28,20 @@ clockStr.textContent = clockStr;
 
 colorClock();
 setInterval(colorClock, 1000);
+
+
+
+//  MOUSE OVER: need to figure out how to change the display to show hexdecimal
+clockDisplay.addEventListener("mouseover", function( event ) {
+  // highlight the mouseover target
+// below line changes text to purple
+  event.target.style.color = "purple";
+
+  // reset the color after a short delay
+  setTimeout(function() {
+    event.target.style.color = "";
+  }, 1000);
+}, false);
 
 
 // *start code- the following displays the date/time in clock.
