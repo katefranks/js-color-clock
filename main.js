@@ -1,47 +1,124 @@
-var clockDisplay = document.querySelector('.clock-display');
-var clock = document.querySelector('.clock');
+// declare variables so you dont have to use query selector later on
+const $clock = document.querySelector('.clock');
+const $display = document.querySelector('.clock-display')
+const $progressBar = document.querySelector('.clock-progress-bar')
+// $ is not required, but it's a visual that you're triggering the DOM.
+let isHovering = false;
 
-function colorClock() {
-  var time = new Date();
-  var hours = (time.getHours() %12).toString();
-  var minutes = time.getMinutes().toString();
-  var seconds = time.getSeconds().toString();
+$clock.addEventListener('mouseover' , function() {
+  isHovering = true;
+})
 
-  if (hours.length < 2) {
-    hours = '0' + hours;
-  }
+$clock.addEventListener('mouseout' , function() {
+  isHovering = false;
+});
 
-  if (minutes.length < 2) {
-    minutes = '0' + minutes;
-  }
+const now = new Date();
+console.log(now);
 
-  if (seconds.length < 2) {
-    seconds = '0' + seconds;
-  }
+function setDate() {
+  const now = new Date();
+  // let seconds, hour, minutes;
+  // console.log(now);
+  let hour, minutes, seconds;
 
-var clockDisplayStr = hours + ':' + minutes + ':' + seconds;
-var clockStr = '#' + hours + minutes + seconds;
+  if(isHovering) {
+      hour = ('0' + now.getHours().toString(16)).slice(-2);
+      minutes = ('0' + now.getMinutes().toString(16)).slice(-2);
+      seconds = ('0' + now.getSeconds().toString(16)).slice(-2);
+    } else {
+      hour = ('0' + now.getHours()).slice(-2);
+      minutes = ('0' + now.getMinutes()).slice(-2);
+      seconds = ('0' + now.getSeconds()).slice(-2);
+    }
+  // strings have a starting value and an end value. If you say slice, you are going to the end and targets
+  // let hour = ('0' now.getHours()).slice(-2);
+  // let minutes = ('0' now.getMinutes()slice(-2);
+  // let seconds = ('0' now.getSeconds()slice(-2);
 
-clockDisplay.textContent = clockDisplayStr;
-clockStr.textContent = clockStr;
+// `${hour}` alerts
+  let displayTime = `${hour}:${minutes}:${seconds}`;
+  $display.innerHTML = displayTime;
+  $progressBar.style.width = `${seconds / 60 * 14}rem`;
 }
+  setInterval(setDate, 1000);
+  setDate();
 
-colorClock();
-setInterval(colorClock, 1000);
+// console.log(seconds / 60);
+
+// modify the length of the timer bar. 14 is the length of the bar, found in the original CSS file.
+
+// $progress.Bar.style.width = `${seconds / 60 * 14}rem`;
+
+// console.log a hexidecimal color that is based on the current second, every second
+
+// }
+// set interval will fire code ever second, set time out would wait one second and then fire code 1x
+// setInterval(setDate, 1000);
+// setDate();
+
+  // $clock.style.background = "blue, purple, yellow";
+
+  function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++ ) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+  }
 
 
+  function changeColor(){
+    $clock.style.background= getRandomColor();
+  }
+  setInterval(changeColor,1000);
+
+// *********************************
+// var clockDisplay = document.querySelector('.clock-display');
+// var clock = document.querySelector('.clock');
+//
+// function colorClock() {
+//   var time = new Date();
+//   var hours = (time.getHours() %12).toString();
+//   var minutes = time.getMinutes().toString();
+//   var seconds = time.getSeconds().toString();
+//
+//   if (hours.length < 2) {
+//     hours = '0' + hours;
+//   }
+//
+//   if (minutes.length < 2) {
+//     minutes = '0' + minutes;
+//   }
+//
+//   if (seconds.length < 2) {
+//     seconds = '0' + seconds;
+//   }
+//
+// var clockDisplayStr = hours + ':' + minutes + ':' + seconds;
+// var clockStr = '#' + hours + minutes + seconds;
+//
+// clockDisplay.textContent = clockDisplayStr;
+// clockStr.textContent = clockStr;
+// }
+//
+// colorClock();
+// setInterval(colorClock, 1000);
+
+// *********************************
 
 //  MOUSE OVER: need to figure out how to change the display to show hexdecimal
-clockDisplay.addEventListener("mouseover", function( event ) {
-  // highlight the mouseover target
-// below line changes text to purple
-  event.target.style.color = "purple";
-
-  // reset the color after a short delay
-  setTimeout(function() {
-    event.target.style.color = "";
-  }, 1000);
-}, false);
+// clockDisplay.addEventListener("mouseover", function( event ) {
+//   // highlight the mouseover target
+// // below line changes text to purple
+//   event.target.style.color = "purple";
+//
+//   // reset the color after a short delay
+//   setTimeout(function() {
+//     event.target.style.color = "";
+//   }, 1000);
+// }, false);
 
 
 // *start code- the following displays the date/time in clock.
